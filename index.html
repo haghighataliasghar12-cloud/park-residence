@@ -275,5 +275,59 @@ async function renderSubPhotos(key) {
   const imgs = await getPhotosFromFirebase(key);
   grid.innerHTML = imgs.map((url, i) => `
     <div class="photo-item" onclick="openLightbox('${url}')">
-      <img src="${url}" loading="lazy"/>
+      <img src="${url}" loading="lazy"/><!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>Park Residence</title>
+
+<style>
+body{font-family:tahoma;margin:0;background:#0f172a;color:#fff}
+header{padding:20px;text-align:center;background:#111827}
+.card{margin:15px;padding:15px;background:#1f2937;border-radius:10px}
+.step{padding:10px;border-bottom:1px solid #333}
+.done{color:#22c55e}
+.now{color:#f59e0b}
+.wait{color:#94a3b8}
+#qr{display:flex;justify-content:center;margin:20px}
+</style>
+
+</head>
+<body>
+
+<header>
+<h2>🏗 Park Residence</h2>
+<p>Construction Progress System</p>
+</header>
+
+<div class="card">
+<h3>📊 مراحل ساخت</h3>
+
+<div class="step done">✔ مطالعات و طراحی</div>
+<div class="step done">✔ فونداسیون</div>
+<div class="step done">✔ زیرزمین‌ها</div>
+<div class="step now">▶ لابی (در حال اجرا)</div>
+<div class="step wait">⏳ طبقات</div>
+<div class="step wait">⏳ نازک‌کاری</div>
+<div class="step wait">⏳ تحویل</div>
+
+</div>
+
+<div class="card">
+<h3>📱 QR Code ورود به سایت</h3>
+<div id="qr"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+new QRCode(document.getElementById("qr"), {
+  text: window.location.href,
+  width: 200,
+  height: 200
+});
+</script>
+
+</body>
+</html>
       
