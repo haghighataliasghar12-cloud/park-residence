@@ -1,13 +1,16 @@
 // ===== Firebase =====
 
 const firebaseConfig = {
-  apiKey: "کلید خودت",
+  
+  apiKey: "AIzaSyDjgAT_K1VVJfzZ10gUZP_vda2vpxJT1Xg",
   authDomain: "park--residence.firebaseapp.com",
   projectId: "park--residence",
   storageBucket: "park--residence.firebasestorage.app",
   messagingSenderId: "885352722521",
   appId: "1:885352722521:web:c5271c4f898a3aca8b4148"
 };
+  
+  
 
 firebase.initializeApp(firebaseConfig);
 
