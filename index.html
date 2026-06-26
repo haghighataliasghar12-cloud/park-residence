@@ -269,3 +269,81 @@ const db = firebase.firestore();
 
 // Storage
 const storage = firebase.storage();
+
+// ==========================
+// 📊 PROJECT DATA
+// ==========================
+
+const PHASES = [
+  { title: "مطالعات و طراحی", status: "done", percent: 100 },
+  { title: "فونداسیون", status: "done", percent: 100 },
+  { title: "زیرزمین‌ها", status: "done", percent: 100 },
+  { title: "لابی (در حال اجرا)", status: "now", percent: 55 },
+  { title: "طبقات", status: "wait", percent: 0 },
+  { title: "نازک‌کاری", status: "wait", percent: 0 },
+  { title: "تحویل", status: "wait", percent: 0 }
+];
+
+// ==========================
+// 📊 CALCULATE PROGRESS
+// ==========================
+
+function calculateProgress() {
+  let sum = 0;
+  PHASES.forEach(p => sum += p.percent);
+
+  const avg = Math.round(sum / PHASES.length);
+
+  document.getElementById("progressText").innerText = avg + "%";
+  document.getElementById("barFill").style.width = avg + "%";
+}
+
+// ==========================
+// 🏗 RENDER TIMELINE
+// ==========================
+
+function renderTimeline() {
+  const container = document.getElementById("timeline");
+
+  container.innerHTML = PHASES.map((p, i) => {
+
+    let cls = p.status;
+
+    return `
+      <div class="phase ${cls}">
+        <div class="phase-title" onclick="togglePhase(${i})">
+          <span>${p.title}</span>
+          <span>${p.percent}%</span>
+        </div>
+
+        <div class="phase-body" id="phase-${i}">
+          <p>جزئیات مرحله: ${p.title}</p>
+          <div class="photo-grid" id="photos-${i}">
+            <p>📷 هنوز عکسی ثبت نشده</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+// ==========================
+// 🔽 OPEN / CLOSE PHASE
+// ==========================
+
+function togglePhase(i) {
+  const el = document.getElementById("phase-" + i);
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
+
+// ==========================
+// 🚀 INIT
+// ==========================
+
+function init() {
+  renderTimeline();
+  calculateProgress();
+  generateQR();
+}
+
+init();
