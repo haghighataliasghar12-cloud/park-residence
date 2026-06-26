@@ -447,3 +447,17 @@ function login() {
     alert("رمز اشتباه است");
   }
 }
+
+// ==========================
+// ☁️ UPLOAD IMAGE TO FIREBASE STORAGE
+// ==========================
+
+async function uploadImage(file) {
+  const storageRef = storage.ref("images/" + Date.now() + "_" + file.name);
+
+  await storageRef.put(file);
+
+  const url = await storageRef.getDownloadURL();
+
+  return url;
+}
