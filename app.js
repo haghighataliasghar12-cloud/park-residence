@@ -1,53 +1,85 @@
+// ===== Firebase =====
+
+const firebaseConfig = {
+  apiKey: "کلید خودت",
+  authDomain: "park--residence.firebaseapp.com",
+  projectId: "park--residence",
+  storageBucket: "park--residence.firebasestorage.app",
+  messagingSenderId: "885352722521",
+  appId: "1:885352722521:web:c5271c4f898a3aca8b4148"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+// ===== مراحل پروژه =====
+
 const PHASES = [
-  {title:"طراحی", p:100},
-  {title:"فونداسیون", p:100},
-  {title:"زیرزمین", p:100},
-  {title:"لابی", p:60},
-  {title:"طبقات", p:0},
-  {title:"نازک‌کاری", p:0}
+  "تخریب",
+  "فونداسیون",
+  "اسکلت بتنی",
+  "لابی",
+  "سفت کاری",
+  "تأسیسات مکانیکی",
+  "تأسیسات برقی",
+  "نازک کاری"
 ];
 
-function calc(){
-  let sum = 0;
-  PHASES.forEach(x => sum += x.p);
-  let avg = Math.round(sum / PHASES.length);
+function startProject(){
 
-  document.getElementById("progressText").innerText = avg + "%";
-  document.getElementById("barFill").style.width = avg + "%";
+    console.log("Park Residence Started");
+
 }
 
-function render(){
-  document.getElementById("timeline").innerHTML =
-    PHASES.map((p,i)=>`
-      <div class="phase">
-        <div class="phase-title" onclick="toggle(${i})">
-          <span>${p.title}</span>
-          <span>${p.p}%</span>
-        </div>
-        <div class="phase-body" id="p${i}">
-          <input type="file" onchange="upload(event,${i})">
-          <div id="g${i}"></div>
-        </div>
-      </div>
-    `).join("");
+window.onload = startProject;// ==========================
+// آپلود عکس
+// ==========================
+
+async function uploadPhoto(file, phase){
+
+    if(!file) return;
+
+    const fileName = Date.now() + "_" + file.name;
+
+    const ref = storage.ref("photos/" + fileName);
+
+    await ref.put(file);
+
+    const url = await ref.getDownloadURL();
+
+    await db.collection("photos").doc(phase).set({
+
+        images: firebase.firestore.FieldValue.arrayUnion(url)
+
+    },{merge:true});
+
+    alert("عکس با موفقیت ذخیره شد.");
+
+}// ==========================
+// نمایش عکس‌ها
+// ==========================
+
+async function loadPhotos(phase){
+
+    const doc = await db.collection("photos").doc(phase).get();
+
+    if(!doc.exists) return;
+
+    const data = doc.data().images || [];
+
+    const gallery = document.getElementById("gallery-"+phase);
+
+    if(!gallery) return;
+
+    gallery.innerHTML = "";
+
+    data.forEach(url=>{
+
+        gallery.innerHTML +=
+        `<img src="${url}" style="width:120px;border-radius:10px;margin:5px;">`;
+
+    });
+
 }
-
-function toggle(i){
-  let el = document.getElementById("p"+i);
-  el.style.display = el.style.display === "block" ? "none" : "block";
-}
-
-function upload(e,i){
-  alert("فعلاً آپلود غیرفعال است.");
-}
-
-function load(i){}
-
-function qr(){}
-
-function init(){
-  render();
-  calc();
-}
-
-init();
