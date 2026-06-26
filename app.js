@@ -45,7 +45,47 @@ window.onload = startProject;// ==========================
     
 // نمایش عکس‌ها
 // ==========================
+// ==========================
+// آپلود عکس با Cloudinary
+// ==========================
 
+async function uploadPhoto(file, phase){
+
+    if(!file) return;
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("upload_preset", "park_unsigned");
+    formData.append("folder", phase);
+
+    const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dby2xz2j/image/upload",
+        {
+            method: "POST",
+            body: formData
+        }
+    );
+
+    const result = await response.json();
+
+    if(result.secure_url){
+
+        await db.collection("photos").doc(phase).set({
+            images: firebase.firestore.FieldValue.arrayUnion(result.secure_url)
+        }, {merge:true});
+
+        alert("عکس با موفقیت آپلود شد.");
+
+        loadPhotos(phase);
+
+    }else{
+
+        alert("خطا در آپلود عکس");
+        console.log(result);
+
+    }
+}
 async function loadPhotos(phase){
 
     const doc = await db.collection("photos").doc(phase).get();
