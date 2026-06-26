@@ -15,7 +15,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
-const storage = firebase.storage();
+
 
 // ===== مراحل پروژه =====
 
@@ -40,27 +40,9 @@ window.onload = startProject;// ==========================
 // آپلود عکس
 // ==========================
 
-async function uploadPhoto(file, phase){
 
-    if(!file) return;
 
-    const fileName = Date.now() + "_" + file.name;
-
-    const ref = storage.ref("photos/" + fileName);
-
-    await ref.put(file);
-
-    const url = await ref.getDownloadURL();
-
-    await db.collection("photos").doc(phase).set({
-
-        images: firebase.firestore.FieldValue.arrayUnion(url)
-
-    },{merge:true});
-
-    alert("عکس با موفقیت ذخیره شد.");
-
-}// ==========================
+    
 // نمایش عکس‌ها
 // ==========================
 
