@@ -562,3 +562,77 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 const storage = firebase.storage();
+const PHASES = [
+  {title:"طراحی",p:100},
+  {title:"فونداسیون",p:100},
+  {title:"زیرزمین",p:100},
+  {title:"لابی",p:60},
+  {title:"طبقات",p:0}
+];
+
+function calc(){
+  let s=0;
+  PHASES.forEach(x=>s+=x.p);
+  let avg=Math.round(s/PHASES.length);
+  document.getElementById("progressText").innerText=avg+"%";
+  document.getElementById("barFill").style.width=avg+"%";
+}
+
+function render(){
+  document.getElementById("timeline").innerHTML=
+  PHASES.map((p,i)=>`
+    <div class="phase">
+      <div class="phase-title" onclick="toggle(${i})">
+        <span>${p.title}</span>
+        <span>${p.p}%</span>
+      </div>
+      <div class="phase-body" id="p${i}">
+        <input type="file" onchange="upload(event,${i})">
+        <div id="g${i}"></div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function toggle(i){
+  let el=document.getElementById("p"+i);
+  el.style.display=el.style.display==="block"?"none":"block";
+}
+
+async function upload(e,i){
+  let file=e.target.files[0];
+  let ref=storage.ref("img/"+Date.now());
+  await ref.put(file);
+  let url=await ref.getDownloadURL();
+
+  await db.collection("photos").doc("p"+i).set({
+    urls:firebase.firestore.FieldValue.arrayUnion(url)
+  },{merge:true});
+
+  load(i);
+}
+
+async function load(i){
+  let doc=await db.collection("photos").doc("p"+i).get();
+  let data=doc.exists?doc.data().urls:[];
+
+  document.getElementById("g"+i).innerHTML=
+  data.map(u=>`<img src="${u}">`).join("");
+}
+
+function qr(){
+  new QRCode(document.getElementById("qr"),{
+    text:window.location.href,
+    width:200,
+    height:200
+  });
+}
+
+function init(){
+  render();
+  calc();
+  qr();
+  PHASES.forEach((_,i)=>load(i));
+}
+
+init();
