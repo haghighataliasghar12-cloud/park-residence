@@ -1,108 +1,24 @@
-  
-
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Park Residence</title>
-<link rel="stylesheet" href="style.css">
-</head>
-  <body>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<header>
-<h2>🏗 پارک رزیدنس</h2>
-<p>سیستم نمایش مراحل ساخت</p>
-</header>
+<title>پارک رزیدنس</title>
 
-<div class="card">
-<h3>📊 مراحل پروژه</h3>
-<div class="step done">✔ طراحی</div>
-<div class="step done">✔ فونداسیون</div>
-<div class="step done">✔ زیرزمین</div>
-<div class="step now">▶ لابی</div>
-<div class="step wait">⏳ طبقات</div>
-<div class="step wait">⏳ نازک‌کاری</div>
-</div>
+<style>
 
-<div class="card">
-<h3>📱 QR Code</h3>
-<div id="qr"></div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
-new QRCode(document.getElementById("qr"), {
-  text: window.location.href,
-  width: 200,
-  height: 200
-});
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Park Residence</title>
-
-<link rel="stylesheet" href="style.css">
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
-
-<!-- QR Code -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-</head>
-
-<body>
-
-<header>
-  <h1>🏗 Park Residence</h1>
-  <p>Construction Progress System</p>
-</header>
-
-<div class="container">
-
-  <!-- Progress -->
-  <div class="card">
-    <h2>📊 پیشرفت پروژه</h2>
-    <div id="progressText">0%</div>
-    <div class="bar"><div id="barFill"></div></div>
-  </div>
-
-  <!-- Timeline -->
-  <div class="card">
-    <h2>🏢 مراحل ساخت</h2>
-    <div id="timeline"></div>
-  </div>
-
-  <!-- QR -->
-  <div class="card center">
-    <h2>📱 QR ورود به سایت</h2>
-    <div id="qr"></div>
-  </div>
-
-</div>
-
-<script src="firebase.js"></script>
-<script src="app.js"></script>
-
-</body>
-</html>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:tahoma,sans-serif;
+font-family:tahoma;
 }
 
 body{
-background:#f5f7fa;
-direction:rtl;
+background:#eef2f7;
 color:#222;
 }
 
@@ -111,17 +27,20 @@ background:#0b3d91;
 color:white;
 padding:25px;
 text-align:center;
-box-shadow:0 2px 10px rgba(0,0,0,.2);
 }
 
 header h1{
-font-size:30px;
+font-size:32px;
 margin-bottom:10px;
+}
+
+header p{
+font-size:18px;
 }
 
 .container{
 width:95%;
-max-width:1100px;
+max-width:950px;
 margin:auto;
 padding:20px;
 }
@@ -131,7 +50,7 @@ background:white;
 border-radius:15px;
 padding:20px;
 margin-bottom:20px;
-box-shadow:0 4px 15px rgba(0,0,0,.08);
+box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
 .card h2{
@@ -139,13 +58,21 @@ margin-bottom:15px;
 color:#0b3d91;
 }
 
-.center{
-text-align:center;
+.info{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.item{
+background:#f7f7f7;
+padding:12px;
+border-radius:10px;
 }
 
 .bar{
 width:100%;
-height:20px;
+height:22px;
 background:#ddd;
 border-radius:30px;
 overflow:hidden;
@@ -154,801 +81,151 @@ margin-top:15px;
 
 #barFill{
 height:100%;
-width:0%;
-background:#27ae60;
-transition:.5s;
+width:35%;
+background:#1faa59;
 }
 
-#progressText{
-font-size:28px;
+#percent{
+font-size:30px;
 font-weight:bold;
-color:#27ae60;
+text-align:center;
+color:#1faa59;
+margin-top:15px;
 }
 
-.phase{
-background:#fafafa;
-border:1px solid #ddd;
-border-radius:10px;
-margin-bottom:12px;
-overflow:hidden;
-}
-
-.phase-title{
-padding:15px;
-cursor:pointer;
+.step{
+padding:14px;
+border-bottom:1px solid #eee;
 font-size:18px;
-font-weight:bold;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.phase-body{
-display:none;
-padding:15px;
-border-top:1px solid #ddd;
-}
-
-.phase.open .phase-body{
-display:block;
 }
 
 .done{
-color:#16a34a;
+color:green;
 }
 
 .now{
-color:#f59e0b;
+color:orange;
+font-weight:bold;
 }
 
 .wait{
 color:#888;
 }
 
-.photo-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-gap:10px;
-margin-top:15px;
-}
-
-.photo-grid img{
-width:100%;
-border-radius:10px;
-cursor:pointer;
-transition:.3s;
-}
-
-.photo-grid img:hover{
-transform:scale(1.05);
-}
-
-button{
-background:#0b3d91;
-color:white;
-border:none;
-padding:12px 18px;
-border-radius:8px;
-cursor:pointer;
-}
-
-button:hover{
-background:#072c69;
-}
-
 #qr{
 display:flex;
 justify-content:center;
-margin-top:15px;
-}
-// Firebase Configuration
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDjgAT_K1VVJfzZ10gUZP_vda2vpxJT1Xg",
-  authDomain: "park--residence.firebaseapp.com",
-  projectId: "park--residence",
-  storageBucket: "park--residence.firebasestorage.app",
-  messagingSenderId: "885352722521",
-  appId: "1:885352722521:web:c5271c4f898a3aca8b4148"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Firestore
-const db = firebase.firestore();
-
-// Storage
-const storage = firebase.storage();
-
-// ==========================
-// 📊 PROJECT DATA
-// ==========================
-
-const PHASES = [
-  { title: "مطالعات و طراحی", status: "done", percent: 100 },
-  { title: "فونداسیون", status: "done", percent: 100 },
-  { title: "زیرزمین‌ها", status: "done", percent: 100 },
-  { title: "لابی (در حال اجرا)", status: "now", percent: 55 },
-  { title: "طبقات", status: "wait", percent: 0 },
-  { title: "نازک‌کاری", status: "wait", percent: 0 },
-  { title: "تحویل", status: "wait", percent: 0 }
-];
-
-// ==========================
-// 📊 CALCULATE PROGRESS
-// ==========================
-
-function calculateProgress() {
-  let sum = 0;
-  PHASES.forEach(p => sum += p.percent);
-
-  const avg = Math.round(sum / PHASES.length);
-
-  document.getElementById("progressText").innerText = avg + "%";
-  document.getElementById("barFill").style.width = avg + "%";
+margin-top:20px;
 }
 
-// ==========================
-// 🏗 RENDER TIMELINE
-// ==========================
+@media(max-width:700px){
 
-function renderTimeline() {
-  const container = document.getElementById("timeline");
+.info{
 
-  container.innerHTML = PHASES.map((p, i) => {
+grid-template-columns:1fr;
 
-    let cls = p.status;
-
-    return `
-      <div class="phase ${cls}">
-        <div class="phase-title" onclick="togglePhase(${i})">
-          <span>${p.title}</span>
-          <span>${p.percent}%</span>
-        </div>
-
-        <div class="phase-body" id="phase-${i}">
-          <p>جزئیات مرحله: ${p.title}</p>
-          <div class="photo-grid" id="photos-${i}">
-            <p>📷 هنوز عکسی ثبت نشده</p>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join("");
 }
 
-// ==========================
-// 🔽 OPEN / CLOSE PHASE
-// ==========================
-
-function togglePhase(i) {
-  const el = document.getElementById("phase-" + i);
-  el.style.display = el.style.display === "block" ? "none" : "block";
 }
 
-// ==========================
-// 🚀 INIT
-// ==========================
-
-function init() {
-  renderTimeline();
-  calculateProgress();
-  generateQR();
-}
-
-init();
-
-// ==========================
-// 📦 LOAD PHOTOS FROM FIREBASE
-// ==========================
-
-async function getPhotos(phaseIndex) {
-  const ref = db.collection("photos").doc("phase_" + phaseIndex);
-  const snap = await ref.get();
-
-  if (snap.exists) {
-    return snap.data().urls || [];
-  }
-
-  return [];
-}
-
-// ==========================
-// 📤 SAVE PHOTO URL
-// ==========================
-
-async function savePhoto(phaseIndex, url) {
-  const ref = db.collection("photos").doc("phase_" + phaseIndex);
-
-  const current = await getPhotos(phaseIndex);
-  current.push(url);
-
-  await ref.set({ urls: current });
-}
-
-// ==========================
-// 📷 RENDER PHOTOS
-// ==========================
-
-async function renderPhotos(phaseIndex) {
-  const container = document.getElementById("photos-" + phaseIndex);
-
-  const photos = await getPhotos(phaseIndex);
-
-  if (!photos.length) {
-    container.innerHTML = "<p>📷 هنوز عکسی ثبت نشده</p>";
-    return;
-  }
-
-  container.innerHTML = photos.map(url => `
-    <img src="${url}" onclick="openImage('${url}')">
-  `).join("");
-}
-
-// ==========================
-// 🔍 OPEN IMAGE FULLSCREEN
-// ==========================
-
-function openImage(url) {
-  const div = document.createElement("div");
-  div.style.position = "fixed";
-  div.style.top = 0;
-  div.style.left = 0;
-  div.style.width = "100%";
-  div.style.height = "100%";
-  div.style.background = "rgba(0,0,0,0.9)";
-  div.style.display = "flex";
-  div.style.alignItems = "center";
-  div.style.justifyContent = "center";
-  div.style.zIndex = 9999;
-
-  div.innerHTML = `<img src="${url}" style="max-width:90%;max-height:90%">`;
-
-  div.onclick = () => div.remove();
-
-  document.body.appendChild(div);
-}
-
-// ==========================
-// 🔁 LOAD ALL PHOTOS ON START
-// ==========================
-
-function loadAllPhotos() {
-  PHASES.forEach((_, i) => {
-    renderPhotos(i);
-  });
-}
-
-// ==========================
-// 🔐 ADMIN CHECK
-// ==========================
-
-let isAdmin = false;
-
-// یک کلید ساده (فعلاً)
-const ADMIN_PASS = "1234";
-
-function login() {
-  const p = prompt("رمز مدیر را وارد کنید:");
-  if (p === ADMIN_PASS) {
-    isAdmin = true;
-    alert("وارد شدی 👌");
-  } else {
-    alert("رمز اشتباه است");
-  }
-}
-
-// ==========================
-// ☁️ UPLOAD IMAGE TO FIREBASE STORAGE
-// ==========================
-
-async function uploadImage(file) {
-  const storageRef = storage.ref("images/" + Date.now() + "_" + file.name);
-
-  await storageRef.put(file);
-
-  const url = await storageRef.getDownloadURL();
-
-  return url;
-}
-
-// ==========================
-// ➕ ADD PHOTO TO PHASE
-// ==========================
-
-async function addPhoto(phaseIndex, file) {
-  const url = await uploadImage(file);
-
-  await savePhoto(phaseIndex, url);
-
-  await renderPhotos(phaseIndex);
-}
-<div class="photo-grid" id="photos-${i}">
-${isAdmin ? `
-<input type="file" onchange="handleUpload(event, ${i})">
-` : ""}
-
-// ==========================
-// 📤 HANDLE FILE UPLOAD
-// ==========================
-
-function handleUpload(event, index) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  addPhoto(index, file);
-}
-document.addEventListener("dblclick", login);
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Park Residence</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+</style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 </head>
 
 <body>
 
 <header>
-<h1>🏗 Park Residence</h1>
-<p>Construction Progress</p>
+
+<h1>🏗 پارک رزیدنس</h1>
+
+<p>نیاوران</p>
+
 </header>
 
 <div class="container">
 
 <div class="card">
-<h2>📊 پیشرفت پروژه</h2>
-<div id="progressText">0%</div>
-<div class="bar"><div id="barFill"></div></div>
+
+<h2>مشخصات پروژه</h2>
+
+<div class="info">
+
+<div class="item">۶ واحد مسکونی</div>
+
+<div class="item">شروع: ۱۴۰۴</div>
+
+<div class="item">پایان: ۱۴۰۷</div>
+
+<div class="item">وضعیت: شروع سقف لابی</div>
+
+</div>
+
 </div>
 
 <div class="card">
-<h2>🏗 مراحل</h2>
-<div id="timeline"></div>
+
+<h2>درصد پیشرفت</h2>
+
+<div id="percent">35%</div>
+
+<div class="bar">
+
+<div id="barFill"></div>
+
 </div>
 
-<div class="card center">
-<h2>📱 QR</h2>
+</div>
+
+<div class="card">
+
+<h2>مراحل اجرا</h2>
+
+<div class="step done">✅ تخریب</div>
+
+<div class="step done">✅ فونداسیون</div>
+
+<div class="step done">✅ اسکلت بتنی</div>
+
+<div class="step now">🟠 سقف لابی</div>
+
+<div class="step wait">⬜ سفت کاری</div>
+
+<div class="step wait">⬜ تأسیسات مکانیکی</div>
+
+<div class="step wait">⬜ تأسیسات برقی</div>
+
+<div class="step wait">⬜ نازک کاری</div>
+
+</div>
+
+<div class="card">
+
+<h2>QR Code</h2>
+
 <div id="qr"></div>
-</div>
 
 </div>
 
-<script src="firebase.js"></script>
-<script src="app.js"></script>
+</div>
+
+<script>
+
+new QRCode(document.getElementById("qr"),{
+
+text:window.location.href,
+
+width:180,
+
+height:180
+
+});
+
+</script>
 
 </body>
+
 </html>
-body{font-family:tahoma;background:#f5f7fa;margin:0;direction:rtl}
-header{background:#0b3d91;color:#fff;padding:20px;text-align:center}
-.container{max-width:900px;margin:auto;padding:15px}
-.card{background:#fff;padding:15px;margin:15px;border-radius:12px}
-.bar{height:20px;background:#ddd;border-radius:20px;overflow:hidden}
-#barFill{height:100%;background:#22c55e;width:0%}
-.phase{border-bottom:1px solid #ddd;padding:10px}
-.phase-title{display:flex;justify-content:space-between;cursor:pointer}
-.phase-body{display:none;padding:10px}
-.phase.open .phase-body{display:block}
-img{width:100px;border-radius:10px;margin:5px}
-.center{text-align:center}
-const firebaseConfig = {
-  apiKey: "AIzaSyDjgAT_K1VVJfzZ10gUZP_vda2vpxJT1Xg",
-  authDomain: "park--residence.firebaseapp.com",
-  projectId: "park--residence",
-  storageBucket: "park--residence.firebasestorage.app",
-  messagingSenderId: "885352722521",
-  appId: "1:885352722521:web:c5271c4f898a3aca8b4148"
-};
 
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-const storage = firebase.storage();
-const PHASES = [
-  {title:"طراحی",p:100},
-  {title:"فونداسیون",p:100},
-  {title:"زیرزمین",p:100},
-  {title:"لابی",p:60},
-  {title:"طبقات",p:0}
-];
-
-function calc(){
-  let s=0;
-  PHASES.forEach(x=>s+=x.p);
-  let avg=Math.round(s/PHASES.length);
-  document.getElementById("progressText").innerText=avg+"%";
-  document.getElementById("barFill").style.width=avg+"%";
-}
-
-function render(){
-  document.getElementById("timeline").innerHTML=
-  PHASES.map((p,i)=>`
-    <div class="phase">
-      <div class="phase-title" onclick="toggle(${i})">
-        <span>${p.title}</span>
-        <span>${p.p}%</span>
-      </div>
-      <div class="phase-body" id="p${i}">
-        <input type="file" onchange="upload(event,${i})">
-        <div id="g${i}"></div>
-      </div>
-    </div>
-  `).join("");
-}
-
-function toggle(i){
-  let el=document.getElementById("p"+i);
-  el.style.display=el.style.display==="block"?"none":"block";
-}
-
-async function upload(e,i){
-  let file=e.target.files[0];
-  let ref=storage.ref("img/"+Date.now());
-  await ref.put(file);
-  let url=await ref.getDownloadURL();
-
-  await db.collection("photos").doc("p"+i).set({
-    urls:firebase.firestore.FieldValue.arrayUnion(url)
-  },{merge:true});
-
-  load(i);
-}
-
-async function load(i){
-  let doc=await db.collection("photos").doc("p"+i).get();
-  let data=doc.exists?doc.data().urls:[];
-
-  document.getElementById("g"+i).innerHTML=
-  data.map(u=>`<img src="${u}">`).join("");
-}
-
-function qr(){
-  new QRCode(document.getElementById("qr"),{
-    text:window.location.href,
-    width:200,
-    height:200
-  });
-}
-
-function init(){
-  render();
-  calc();
-  qr();
-  PHASES.forEach((_,i)=>load(i));
-}
-
-init();
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Park Residence</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-</head>
-
-<body>
-
-<header>
-  <h1>🏗 Park Residence</h1>
-  <p>سیستم مدیریت پیشرفت پروژه</p>
-</header>
-
-<div class="container">
-
-  <div class="card">
-    <h2>📊 پیشرفت کل</h2>
-    <div id="progressText">0%</div>
-    <div class="bar"><div id="barFill"></div></div>
-  </div>
-
-  <div class="card">
-    <h2>🏗 مراحل پروژه</h2>
-    <div id="timeline"></div>
-  </div>
-
-  <div class="card center">
-    <h2>📱 QR Code</h2>
-    <div id="qr"></div>
-  </div>
-
-</div>
-
-<script src="firebase.js"></script>
-<script src="app.js"></script>
-
-</body>
-</html>
-body{
-margin:0;
-font-family:tahoma;
-direction:rtl;
-background:#f5f6fa;
-}
-
-header{
-background:#0b3d91;
-color:white;
-text-align:center;
-padding:20px;
-}
-
-.container{
-max-width:900px;
-margin:auto;
-padding:15px;
-}
-
-.card{
-background:white;
-padding:15px;
-margin:15px 0;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-.bar{
-height:18px;
-background:#ddd;
-border-radius:20px;
-overflow:hidden;
-}
-
-#barFill{
-height:100%;
-width:0%;
-background:#22c55e;
-}
-
-.phase{
-border-bottom:1px solid #eee;
-padding:10px;
-}
-
-.phase-title{
-display:flex;
-justify-content:space-between;
-cursor:pointer;
-}
-
-.phase-body{
-display:none;
-padding:10px;
-}
-
-.phase.open .phase-body{
-display:block;
-}
-
-img{
-width:100px;
-margin:5px;
-border-radius:8px;
-}
-
-.center{
-text-align:center;
-}
-const firebaseConfig = {
-  apiKey: "AIzaSyDjgAT_K1VVJfzZ10gUZP_vda2vpxJT1Xg",
-  authDomain: "park--residence.firebaseapp.com",
-  projectId: "park--residence",
-  storageBucket: "park--residence.firebasestorage.app",
-  messagingSenderId: "885352722521",
-  appId: "1:885352722521:web:c5271c4f898a3aca8b4148"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-const storage = firebase.storage();
-const PHASES = [
-  {title:"طراحی",p:100},
-  {title:"فونداسیون",p:100},
-  {title:"زیرزمین",p:100},
-  {title:"لابی",p:60},
-  {title:"طبقات",p:0},
-  {title:"نازک کاری",p:0}
-];
-
-// ---------- progress ----------
-function calc(){
-  let sum = 0;
-  PHASES.forEach(x=>sum+=x.p);
-  let avg = Math.round(sum/PHASES.length);
-
-  document.getElementById("progressText").innerText = avg + "%";
-  document.getElementById("barFill").style.width = avg + "%";
-}
-
-// ---------- render ----------
-function render(){
-  document.getElementById("timeline").innerHTML =
-  PHASES.map((p,i)=>`
-    <div class="phase">
-      <div class="phase-title" onclick="toggle(${i})">
-        <span>${p.title}</span>
-        <span>${p.p}%</span>
-      </div>
-
-      <div class="phase-body" id="p${i}">
-        <input type="file" onchange="upload(event,${i})">
-        <div id="g${i}"></div>
-      </div>
-    </div>
-  `).join("");
-}
-
-// ---------- toggle ----------
-function toggle(i){
-  let el=document.getElementById("p"+i);
-  el.style.display = el.style.display==="block"?"none":"block";
-}
-
-// ---------- upload ----------
-async function upload(e,i){
-  let file = e.target.files[0];
-
-  let ref = storage.ref("images/"+Date.now());
-  await ref.put(file);
-
-  let url = await ref.getDownloadURL();
-
-  await db.collection("photos").doc("p"+i).set({
-    urls: firebase.firestore.FieldValue.arrayUnion(url)
-  },{merge:true});
-
-  load(i);
-}
-
-// ---------- load ----------
-async function load(i){
-  let doc = await db.collection("photos").doc("p"+i).get();
-  let data = doc.exists ? doc.data().urls : [];
-
-  document.getElementById("g"+i).innerHTML =
-  data.map(u=>`<img src="${u}">`).join("");
-}
-
-// ---------- QR ----------
-function qr(){
-  new QRCode(document.getElementById("qr"),{
-    text: window.location.href,
-    width: 180,
-    height: 180
-  });
-}
-
-// ---------- init ----------
-function init(){
-  render();
-  calc();
-  qr();
-
-  PHASES.forEach((_,i)=>load(i));
-}
-
-init();
-```html
-...code...
-
-یا این حالت:
-```javascript
-```javascript
-...code...
-
-👉 مرورگر اینا رو به عنوان **متن معمولی** نمایش میده، نه کد اجراشون کنه.
-
----
-
-# ⚠️ راه‌حل قطعی (خیلی مهم)
-
-الان باید این کار رو بکنی:
-
-## 1) برو GitHub → فایل `app.js`
-
-## 2) کل فایل رو پاک کن
-
-## 3) فقط اینو جایگزین کن (نسخه واقعی بدون هیچ علامت اضافه)
-
----
-
-# 🟢 app.js (نسخه درست نهایی)
-
-```javascript
-const PHASES = [
-  {title:"طراحی",p:100},
-  {title:"فونداسیون",p:100},
-  {title:"زیرزمین",p:100},
-  {title:"لابی",p:60},
-  {title:"طبقات",p:0},
-  {title:"نازک کاری",p:0}
-];
-
-function calc(){
-  let sum = 0;
-  PHASES.forEach(x=>sum+=x.p);
-  let avg = Math.round(sum/PHASES.length);
-
-  document.getElementById("progressText").innerText = avg + "%";
-  document.getElementById("barFill").style.width = avg + "%";
-}
-
-function render(){
-  document.getElementById("timeline").innerHTML =
-  PHASES.map((p,i)=>`
-    <div class="phase">
-      <div class="phase-title" onclick="toggle(${i})">
-        <span>${p.title}</span>
-        <span>${p.p}%</span>
-      </div>
-
-      <div class="phase-body" id="p${i}">
-        <input type="file" onchange="upload(event,${i})">
-        <div id="g${i}"></div>
-      </div>
-    </div>
-  `).join("");
-}
-
-function toggle(i){
-  let el=document.getElementById("p"+i);
-  el.style.display = el.style.display==="block"?"none":"block";
-}
-
-async function upload(e,i){
-  let file = e.target.files[0];
-
-  let ref = storage.ref("images/"+Date.now());
-  await ref.put(file);
-
-  let url = await ref.getDownloadURL();
-
-  await db.collection("photos").doc("p"+i).set({
-    urls: firebase.firestore.FieldValue.arrayUnion(url)
-  },{merge:true});
-
-  load(i);
-}
-
-async function load(i){
-  let doc = await db.collection("photos").doc("p"+i).get();
-  let data = doc.exists ? doc.data().urls : [];
-
-  document.getElementById("g"+i).innerHTML =
-  data.map(u=>`<img src="${u}">`).join("");
-}
-
-function qr(){
-  new QRCode(document.getElementById("qr"),{
-    text: window.location.href,
-    width: 180,
-    height: 180
-  });
-}
-
-function init(){
-  render();
-  calc();
-  qr();
-
-  PHASES.forEach((_,i)=>load(i));
-}
-
-init();
+    
