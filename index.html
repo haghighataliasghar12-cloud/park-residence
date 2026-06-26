@@ -250,3 +250,22 @@ display:flex;
 justify-content:center;
 margin-top:15px;
 }
+// Firebase Configuration
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDjgAT_K1VVJfzZ10gUZP_vda2vpxJT1Xg",
+  authDomain: "park--residence.firebaseapp.com",
+  projectId: "park--residence",
+  storageBucket: "park--residence.firebasestorage.app",
+  messagingSenderId: "885352722521",
+  appId: "1:885352722521:web:c5271c4f898a3aca8b4148"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Firestore
+const db = firebase.firestore();
+
+// Storage
+const storage = firebase.storage();
