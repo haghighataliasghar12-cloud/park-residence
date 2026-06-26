@@ -204,9 +204,13 @@ grid-template-columns:1fr;
 <h2>📷 گالری تصاویر</h2>
 
 <div class="phase">
+
   <h3>تخریب</h3>
+
+  <input type="file" onchange="uploadPhoto(this.files[0],'takhrib')">
+
   <div id="gallery-takhrib"></div>
-</div>
+</div>  
 
 <div class="phase">
   <h3>فونداسیون</h3>
