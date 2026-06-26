@@ -95,3 +95,4 @@ window.onload = function(){
     loadPhotos("finish");
 
 }
+window.onload = loadAllGalleries;
