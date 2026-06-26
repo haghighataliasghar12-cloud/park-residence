@@ -83,3 +83,15 @@ async function loadPhotos(phase){
     });
 
 }
+window.onload = function(){
+
+    loadPhotos("takhrib");
+    loadPhotos("foundation");
+    loadPhotos("skeleton");
+    loadPhotos("lobby");
+    loadPhotos("saftkari");
+    loadPhotos("mechanic");
+    loadPhotos("electric");
+    loadPhotos("finish");
+
+}
