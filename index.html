@@ -549,3 +549,16 @@ header{background:#0b3d91;color:#fff;padding:20px;text-align:center}
 .phase.open .phase-body{display:block}
 img{width:100px;border-radius:10px;margin:5px}
 .center{text-align:center}
+const firebaseConfig = {
+  apiKey: "AIzaSyDjgAT_K1VVJfzZ10gUZP_vda2vpxJT1Xg",
+  authDomain: "park--residence.firebaseapp.com",
+  projectId: "park--residence",
+  storageBucket: "park--residence.firebasestorage.app",
+  messagingSenderId: "885352722521",
+  appId: "1:885352722521:web:c5271c4f898a3aca8b4148"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+const storage = firebase.storage();
