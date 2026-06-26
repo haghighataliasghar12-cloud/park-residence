@@ -19,7 +19,7 @@ const db = firebase.firestore();
 
 // Cloudinary
 const CLOUD_NAME = "dby2xz2j";
-const UPLOAD_PRESET = "Park residence";
+const UPLOAD_PRESET = "park-residence";
 // ======================
 // آپلود عکس
 // ======================
