@@ -45,7 +45,7 @@ async function uploadPhoto(file, phase) {
         );
 
         const result = await response.json();
-
+console.log(result);
         if (result.secure_url) {
 
             await db.collection("photos").doc(phase).set({
