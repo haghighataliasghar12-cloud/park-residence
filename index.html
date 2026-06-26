@@ -489,3 +489,51 @@ function handleUpload(event, index) {
   addPhoto(index, file);
 }
 document.addEventListener("dblclick", login);
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Park Residence</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+
+<header>
+<h1>🏗 Park Residence</h1>
+<p>Construction Progress</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>📊 پیشرفت پروژه</h2>
+<div id="progressText">0%</div>
+<div class="bar"><div id="barFill"></div></div>
+</div>
+
+<div class="card">
+<h2>🏗 مراحل</h2>
+<div id="timeline"></div>
+</div>
+
+<div class="card center">
+<h2>📱 QR</h2>
+<div id="qr"></div>
+</div>
+
+</div>
+
+<script src="firebase.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
