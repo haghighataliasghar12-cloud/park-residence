@@ -461,3 +461,15 @@ async function uploadImage(file) {
 
   return url;
 }
+
+// ==========================
+// ➕ ADD PHOTO TO PHASE
+// ==========================
+
+async function addPhoto(phaseIndex, file) {
+  const url = await uploadImage(file);
+
+  await savePhoto(phaseIndex, url);
+
+  await renderPhotos(phaseIndex);
+}
