@@ -347,3 +347,84 @@ function init() {
 }
 
 init();
+
+// ==========================
+// 📦 LOAD PHOTOS FROM FIREBASE
+// ==========================
+
+async function getPhotos(phaseIndex) {
+  const ref = db.collection("photos").doc("phase_" + phaseIndex);
+  const snap = await ref.get();
+
+  if (snap.exists) {
+    return snap.data().urls || [];
+  }
+
+  return [];
+}
+
+// ==========================
+// 📤 SAVE PHOTO URL
+// ==========================
+
+async function savePhoto(phaseIndex, url) {
+  const ref = db.collection("photos").doc("phase_" + phaseIndex);
+
+  const current = await getPhotos(phaseIndex);
+  current.push(url);
+
+  await ref.set({ urls: current });
+}
+
+// ==========================
+// 📷 RENDER PHOTOS
+// ==========================
+
+async function renderPhotos(phaseIndex) {
+  const container = document.getElementById("photos-" + phaseIndex);
+
+  const photos = await getPhotos(phaseIndex);
+
+  if (!photos.length) {
+    container.innerHTML = "<p>📷 هنوز عکسی ثبت نشده</p>";
+    return;
+  }
+
+  container.innerHTML = photos.map(url => `
+    <img src="${url}" onclick="openImage('${url}')">
+  `).join("");
+}
+
+// ==========================
+// 🔍 OPEN IMAGE FULLSCREEN
+// ==========================
+
+function openImage(url) {
+  const div = document.createElement("div");
+  div.style.position = "fixed";
+  div.style.top = 0;
+  div.style.left = 0;
+  div.style.width = "100%";
+  div.style.height = "100%";
+  div.style.background = "rgba(0,0,0,0.9)";
+  div.style.display = "flex";
+  div.style.alignItems = "center";
+  div.style.justifyContent = "center";
+  div.style.zIndex = 9999;
+
+  div.innerHTML = `<img src="${url}" style="max-width:90%;max-height:90%">`;
+
+  div.onclick = () => div.remove();
+
+  document.body.appendChild(div);
+}
+
+// ==========================
+// 🔁 LOAD ALL PHOTOS ON START
+// ==========================
+
+function loadAllPhotos() {
+  PHASES.forEach((_, i) => {
+    renderPhotos(i);
+  });
+}
