@@ -223,12 +223,19 @@ grid-template-columns:1fr;
 </div>
 <div class="phase">
   <h3>اسکلت</h3>
-  <div id="gallery-frame"></div>
-</div>
+ 
+
+    <input type="file" onchange="uploadPhoto(this.files[0],'frame')">
+
+    <div id="gallery-frame"></div>
+</div> 
 
 <div class="phase">
   <h3>نازک کاری</h3>
-  <div id="gallery-finish"></div>
+
+    <input type="file" onchange="uploadPhoto(this.files[0],'finish')">
+
+    <div id="gallery-finish"></div>
 </div>
 <div class="card">
 
