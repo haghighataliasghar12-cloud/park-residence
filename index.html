@@ -428,3 +428,22 @@ function loadAllPhotos() {
     renderPhotos(i);
   });
 }
+
+// ==========================
+// 🔐 ADMIN CHECK
+// ==========================
+
+let isAdmin = false;
+
+// یک کلید ساده (فعلاً)
+const ADMIN_PASS = "1234";
+
+function login() {
+  const p = prompt("رمز مدیر را وارد کنید:");
+  if (p === ADMIN_PASS) {
+    isAdmin = true;
+    alert("وارد شدی 👌");
+  } else {
+    alert("رمز اشتباه است");
+  }
+}
