@@ -49,3 +49,56 @@ new QRCode(document.getElementById("qr"), {
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Park Residence</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+<!-- QR Code -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+
+<header>
+  <h1>🏗 Park Residence</h1>
+  <p>Construction Progress System</p>
+</header>
+
+<div class="container">
+
+  <!-- Progress -->
+  <div class="card">
+    <h2>📊 پیشرفت پروژه</h2>
+    <div id="progressText">0%</div>
+    <div class="bar"><div id="barFill"></div></div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="card">
+    <h2>🏢 مراحل ساخت</h2>
+    <div id="timeline"></div>
+  </div>
+
+  <!-- QR -->
+  <div class="card center">
+    <h2>📱 QR ورود به سایت</h2>
+    <div id="qr"></div>
+  </div>
+
+</div>
+
+<script src="firebase.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
