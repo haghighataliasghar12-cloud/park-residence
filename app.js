@@ -56,7 +56,7 @@ async function uploadPhoto(file, phase){
     const formData = new FormData();
 
     formData.append("file", file);
-    formData.append("upload_preset", "park_unsigned");
+    formData.append("upload_preset", "Park_residence");
     formData.append("folder", phase);
 
     const response = await fetch(
