@@ -48,8 +48,7 @@ async function uploadPhoto(file, phase) {
     loadPhotos(phase);
 async function loadPhotos(phase) {
 
-    const gallery = document.getElementById("gallery-" + phase);
-
+  const gallery = document.getElementById("gallery");  
     if (!gallery) return;
 
     gallery.innerHTML = "";
