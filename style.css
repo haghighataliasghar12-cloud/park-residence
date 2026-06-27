@@ -59,3 +59,26 @@ button{
     width:100%;
     border-radius:10px;
 }
+.container,
+section{
+width:95%;
+margin:20px auto;
+}
+
+#stepsContainer,
+#gallery,
+#docs,
+#projectInfo{
+display:grid;
+grid-template-columns:1fr;
+gap:20px;
+}
+
+@media(min-width:900px){
+
+#stepsContainer,
+#gallery{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
